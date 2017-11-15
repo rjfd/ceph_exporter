@@ -1,0 +1,16 @@
+[Unit]
+Description=Prometheus exporter for ceph metrics
+Documentation=https://github.com/digitalocean/ceph_exporter
+
+[Service]
+Restart=always
+#User=prometheus
+EnvironmentFile=-/etc/sysconfig/prometheus-ceph_exporter
+ExecStart=/usr/bin/ceph_exporter $ARGS
+ExecReload=/bin/kill -HUP $MAINPID
+TimeoutStopSec=20s
+SendSIGKILL=no
+
+[Install]
+WantedBy=multi-user.target
+
